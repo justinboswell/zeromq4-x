@@ -246,7 +246,7 @@ void zmq::stream_t::identify_peer (pipe_t *pipe_)
     blob_t identity = blob_t (buffer, sizeof buffer);
 
     memcpy (options.identity, identity.data (), identity.size ());
-    options.identity_size = identity.size ();
+    options.identity_size = (unsigned char)identity.size ();
 
     pipe_->set_identity (identity);
     //  Add the record into output pipes lookup table

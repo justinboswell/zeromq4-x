@@ -1146,7 +1146,7 @@ int zmq::socket_base_t::monitor (const char *addr_, int events_)
     return rc;
 }
 
-void zmq::socket_base_t::event_connected (std::string &addr_, int fd_)
+void zmq::socket_base_t::event_connected (std::string &addr_, uintptr_t fd_)
 {
     if (monitor_events & ZMQ_EVENT_CONNECTED) {
         zmq_event_t event;
@@ -1156,7 +1156,7 @@ void zmq::socket_base_t::event_connected (std::string &addr_, int fd_)
     }
 }
 
-void zmq::socket_base_t::event_connect_delayed (std::string &addr_, int err_)
+void zmq::socket_base_t::event_connect_delayed (std::string &addr_, uintptr_t err_)
 {
     if (monitor_events & ZMQ_EVENT_CONNECT_DELAYED) {
         zmq_event_t event;
@@ -1166,7 +1166,7 @@ void zmq::socket_base_t::event_connect_delayed (std::string &addr_, int err_)
     }
 }
 
-void zmq::socket_base_t::event_connect_retried (std::string &addr_, int interval_)
+void zmq::socket_base_t::event_connect_retried (std::string &addr_, uintptr_t interval_)
 {
     if (monitor_events & ZMQ_EVENT_CONNECT_RETRIED) {
         zmq_event_t event;
@@ -1176,7 +1176,7 @@ void zmq::socket_base_t::event_connect_retried (std::string &addr_, int interval
     }
 }
 
-void zmq::socket_base_t::event_listening (std::string &addr_, int fd_)
+void zmq::socket_base_t::event_listening (std::string &addr_, uintptr_t fd_)
 {
     if (monitor_events & ZMQ_EVENT_LISTENING) {
         zmq_event_t event;
@@ -1186,7 +1186,7 @@ void zmq::socket_base_t::event_listening (std::string &addr_, int fd_)
     }
 }
 
-void zmq::socket_base_t::event_bind_failed (std::string &addr_, int err_)
+void zmq::socket_base_t::event_bind_failed (std::string &addr_, uintptr_t err_)
 {
     if (monitor_events & ZMQ_EVENT_BIND_FAILED) {
         zmq_event_t event;
@@ -1196,7 +1196,7 @@ void zmq::socket_base_t::event_bind_failed (std::string &addr_, int err_)
     }
 }
 
-void zmq::socket_base_t::event_accepted (std::string &addr_, int fd_)
+void zmq::socket_base_t::event_accepted (std::string &addr_, uintptr_t fd_)
 {
     if (monitor_events & ZMQ_EVENT_ACCEPTED) {
         zmq_event_t event;
@@ -1206,7 +1206,7 @@ void zmq::socket_base_t::event_accepted (std::string &addr_, int fd_)
     }
 }
 
-void zmq::socket_base_t::event_accept_failed (std::string &addr_, int err_)
+void zmq::socket_base_t::event_accept_failed (std::string &addr_, uintptr_t err_)
 {
     if (monitor_events & ZMQ_EVENT_ACCEPT_FAILED) {
         zmq_event_t event;
@@ -1216,7 +1216,7 @@ void zmq::socket_base_t::event_accept_failed (std::string &addr_, int err_)
     }
 }
 
-void zmq::socket_base_t::event_closed (std::string &addr_, int fd_)
+void zmq::socket_base_t::event_closed (std::string &addr_, uintptr_t fd_)
 {
     if (monitor_events & ZMQ_EVENT_CLOSED) {
         zmq_event_t event;
@@ -1226,7 +1226,7 @@ void zmq::socket_base_t::event_closed (std::string &addr_, int fd_)
     }
 }
         
-void zmq::socket_base_t::event_close_failed (std::string &addr_, int err_)
+void zmq::socket_base_t::event_close_failed (std::string &addr_, uintptr_t err_)
 {
     if (monitor_events & ZMQ_EVENT_CLOSE_FAILED) {
         zmq_event_t event;
@@ -1236,7 +1236,7 @@ void zmq::socket_base_t::event_close_failed (std::string &addr_, int err_)
     }
 }
 
-void zmq::socket_base_t::event_disconnected (std::string &addr_, int fd_)
+void zmq::socket_base_t::event_disconnected (std::string &addr_, uintptr_t fd_)
 {
     if (monitor_events & ZMQ_EVENT_DISCONNECTED) {
         zmq_event_t event;
@@ -1249,8 +1249,9 @@ void zmq::socket_base_t::event_disconnected (std::string &addr_, int fd_)
 void zmq::socket_base_t::monitor_event (zmq_event_t event_, const std::string& addr_)
 {
     if (monitor_socket) {
+        // Always use a 64bit value, so that any arch can read/write any other arch
         const uint16_t eid = (uint16_t)event_.event;
-        const uint32_t value = (uint32_t)event_.value;
+        const uint64_t value = (uint64_t)event_.value;
         // prepare and send first message frame
         // containing event id and value
         zmq_msg_t msg;

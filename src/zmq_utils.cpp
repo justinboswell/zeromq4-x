@@ -148,7 +148,7 @@ uint8_t *zmq_z85_decode (uint8_t *dest, char *string)
     }
     unsigned int byte_nbr = 0;
     unsigned int char_nbr = 0;
-    unsigned int string_len = strlen (string);
+    unsigned int string_len = (unsigned int)strlen (string);
     uint32_t value = 0;
     while (char_nbr < string_len) {
         //  Accumulate value in base 85

@@ -106,16 +106,16 @@ namespace zmq
 
         int monitor (const char *endpoint_, int events_);
 
-        void event_connected (std::string &addr_, int fd_);
-        void event_connect_delayed (std::string &addr_, int err_);
-        void event_connect_retried (std::string &addr_, int interval_);
-        void event_listening (std::string &addr_, int fd_);
-        void event_bind_failed (std::string &addr_, int err_);
-        void event_accepted (std::string &addr_, int fd_);
-        void event_accept_failed (std::string &addr_, int err_);
-        void event_closed (std::string &addr_, int fd_);        
-        void event_close_failed (std::string &addr_, int fd_);  
-        void event_disconnected (std::string &addr_, int fd_); 
+        void event_connected (std::string &addr_, uintptr_t fd_);
+        void event_connect_delayed (std::string &addr_, uintptr_t err_);
+        void event_connect_retried (std::string &addr_, uintptr_t interval_);
+        void event_listening (std::string &addr_, uintptr_t fd_);
+        void event_bind_failed (std::string &addr_, uintptr_t err_);
+        void event_accepted (std::string &addr_, uintptr_t fd_);
+        void event_accept_failed (std::string &addr_, uintptr_t err_);
+        void event_closed (std::string &addr_, uintptr_t fd_);        
+        void event_close_failed (std::string &addr_, uintptr_t fd_);  
+        void event_disconnected (std::string &addr_, uintptr_t fd_); 
 
     protected:
 

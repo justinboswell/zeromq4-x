@@ -338,7 +338,7 @@ ZMQ_EXPORT int zmq_msg_set (zmq_msg_t *msg, int option, int optval);
 /*  Socket event data  */
 typedef struct {
     uint16_t event;  // id of the event as bitfield
-    int32_t  value ; // value is either error code, fd or reconnect interval
+    uintptr_t  value; // value is either error code, fd or reconnect interval
 } zmq_event_t;
 
 ZMQ_EXPORT void *zmq_socket (void *, int type);

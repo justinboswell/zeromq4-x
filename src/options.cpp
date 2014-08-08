@@ -91,7 +91,7 @@ int zmq::options_t::setsockopt (int option_, const void *optval_,
             //  as these are used for auto-generated identities.
             if (optvallen_ > 0 && optvallen_ < 256
             && *((const unsigned char *) optval_) != 0) {
-                identity_size = optvallen_;
+                identity_size = (unsigned char)optvallen_;
                 memcpy (identity, optval_, identity_size);
                 return 0;
             }
