@@ -614,10 +614,10 @@ set(tests
         test_inproc_connect
         test_issue_566
         test_many_sockets
+        test_monitor
 )
 if(NOT WIN32)
 list(APPEND tests
-        test_monitor
         test_pair_ipc
         test_reqrep_ipc
         test_stream)

@@ -249,6 +249,9 @@ int main (void)
     rc = zmq_close (req2);
     assert (rc == 0);
 
+    // Allow enough time for close commands to be processed
+    msleep(250);
+
     zmq_ctx_term (ctx);
 
     // Expected REP socket events
